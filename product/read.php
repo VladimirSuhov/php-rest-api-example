@@ -23,11 +23,33 @@ $product = new Product($db);
 
 // запрос к таблице products
 $stmt = $product->read();
-$num = $product->numCount();
+$num = $product->rowCount();
+
 
 // проверяем если кол-во записей > 0
 if($num > 0) {
     $products_arr = [];
     $products_arr["records"] = array();
 
+    //запрашиваем обьекты из таблицы
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        // извлекаем row
+        // таким образом $row['name'] будет приведено к $name
+        extract($row);
+        $products_item = array(
+            "id" => $id,
+            "name" => $name,
+            "description" => html_entity_decode($description),
+            "price" => $price,
+            "category_id" => $category_id,
+            "category_name" => $category_name
+        );
+
+        array_push($products_arr["records"], $products_item);
+    }
+    echo json_encode($products_arr, JSON_PRETTY_PRINT);
+} else {
+    echo json_encode(
+        array("message" => "No products found.")
+    );
 }
