@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Vova
  * Date: 06.11.2017
- * Time: 16:53
+ * Time: 16:56
  */
 
 // необходимые заголовки
@@ -31,20 +31,16 @@ $data = json_decode(file_get_contents("php://input"));
 $product->id = $data->id;
 
 
-$product->name = $data->name;
-$product->price = $data->price;
-$product->description = $data->description;
-$product->category_id = $data->category_id;
 
 // обновляем продукт
 if($product->update()){
     echo '{';
-        echo '"message": "Product was updated."';
+        echo '"message": "Product was deleted."';
     echo '}';
 }
 
 else{
     echo '{';
-        echo '"message": "Unable to update product."';
+        echo '"message": "Unable to delete product."';
     echo '}';
 }
