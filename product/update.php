@@ -1,0 +1,50 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Vova
+ * Date: 06.11.2017
+ * Time: 16:53
+ */
+
+// required headers
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Max-Age: 3600");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+// include database and object files
+include_once '../config/database.php';
+include_once '../objects/product.php';
+
+// инициализируем подключение к бд
+$database = new Database();
+$db = $database->getConnection();
+
+// инициализируем объект Products
+$product = new Product($db);
+
+// получаем id продутка, который нужно обновить
+$data = json_decode(file_get_contents("php://input"));
+
+// присваиваем id продутка, который нужно обновить
+$product->id = $data->id;
+
+
+$product->name = $data->name;
+$product->price = $data->price;
+$product->description = $data->description;
+$product->category_id = $data->category_id;
+
+// обновляем продукт
+if($product->update()){
+    echo '{';
+    echo '"message": "Product was updated."';
+    echo '}';
+}
+
+else{
+    echo '{';
+    echo '"message": "Unable to update product."';
+    echo '}';
+}

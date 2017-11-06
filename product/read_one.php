@@ -36,4 +36,4 @@ $product_arr = array(
     "category_name" => $product->category_name
 );
 
-print_r(json_encode($product_arr));
+print_r(json_encode($product_arr,JSON_PRETTY_PRINT));
