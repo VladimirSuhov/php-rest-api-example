@@ -4,16 +4,14 @@
 $(document).ready(function () {
 
     showProducts();
-    //
-    // $(document).on('click', '.read-products-button'), function () {
-    //     showProducts();
-    // }
+
+    $(document).on('click', '.read-products-button', function () {
+        showProducts();
+    });
 
 });
 
 function showProducts() {
-
-    let productsJSON;
 
     $.getJSON("http://php-rest-api-example/api/product/read.php", function (data) {
 
@@ -32,7 +30,7 @@ function showProducts() {
             </table> `;
 
         function renderRows(data) {
-            console.log(data.records);
+
             return data.records.map((item, index) => {
 
                 return `<tr>
@@ -59,5 +57,6 @@ function showProducts() {
         }
         $('#page-content').html(read_products_html);
     });
+    // changePageTitle("Read Products");
 }
 

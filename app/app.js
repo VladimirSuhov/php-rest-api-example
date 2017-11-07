@@ -21,7 +21,7 @@ $(document).ready(function () {
 
        document.title = page_title;
    }
-
+});
    $.fn.serializeObject = function () {
 
       let obj = {};
@@ -40,4 +40,3 @@ $(document).ready(function () {
       });
       return obj;
    }
-});
