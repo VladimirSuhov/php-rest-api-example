@@ -13,7 +13,14 @@ $(document).ready(function () {
 
 function showProducts() {
 
-    $.getJSON("http://php-rest-api-example/api/product/read.php", function (data) {
+    fetch("http://php-rest-api-example/api/product/read.php").then(
+        function (response) {
+            if(response.status !== 200) {
+                console.log('Looks like there was a problem. Status Code: ' + response.status);
+                return;
+            }
+
+            response.json().then(function (data) {
 
         let read_products_html =
             `<div id='create-product' class='btn btn-primary pull-right m-b-15px create-product-button'>
@@ -56,7 +63,11 @@ function showProducts() {
             })
         }
         $('#page-content').html(read_products_html);
+    })
+    .catch(function (err) {
+        console.log('Fetch Error :-S', err);
     });
     // changePageTitle("Read Products");
+});
 }
 
