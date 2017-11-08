@@ -24,23 +24,20 @@ $db = $database->getConnection();
 // инициализируем объект Products
 $product = new Product($db);
 
-// получаем id продутка, который нужно обновить
-$data = json_decode(file_get_contents("php://input"));
+// присваиваем id продутка, который нужно удалить
 
-// присваиваем id продутка, который нужно обновить
-$product->id = $data->id;
-
-
-
-// обновляем продукт
-if($product->update()){
-    echo '{';
-        echo '"message": "Product was deleted."';
-    echo '}';
+if (!empty($_POST['id'])) {
+    $product->id = $_POST['id'];
+// удаляем продукт
+    if($product->update()){
+        echo json_encode(array("success" => true, "message" => "Product successfully deleted"));
+    }
+    else{
+        echo json_encode(array("success" => true, "message" => "Error, product was not deleted"));
+    }
+} else {
+    echo json_encode(array("success" => true, "message" => "Data error, please check iff you pass correct product id"));
 }
 
-else{
-    echo '{';
-        echo '"message": "Unable to delete product."';
-    echo '}';
-}
+
+

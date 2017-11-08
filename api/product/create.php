@@ -8,7 +8,6 @@
 
 // необходимые заголовки
 header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -25,21 +24,20 @@ $db = $database->getConnection();
 $product = new Product($db);
 
 // получаем данные отправленные через POST
-$data = json_decode(file_get_contents("php://input"));
 
-$product->name = $data->name;
-$product->price = $data->price;
-$product->description = $data->description;
-$product->category_id = $data->category_id;
-$product->created = $data('Y-m-d H:i:s');
+if(!empty($_POST['name'] && $_POST['price'] && $_POST['description'] && $_POST['category_id'])) {
+    $product->name = $_POST['name'];
+    $product->price = $_POST['price'];
+    $product->description = $_POST['description'];
+    $product->category_id = $_POST['category_id'];
+    $product->created = date('Y-m-d H:i:s');
 
-// создаем продукт
-if($product->create()){
-    echo '{';
-        echo '"message": "Product was created."';
-    echo '}';
-} else{
-    echo '{';
-        echo '"message": "Unable to create product."';
-    echo '}';
+    if($product->create()){
+        echo json_encode(array("success" => true, "message" => "New product successfully added"));
+    } else{
+        echo json_encode(array("success" => false, "message" => "Failed to add new product"));
+    }
+} else {
+    echo json_encode(array("success" => false, "message" => "Failed to add new product, please, enter all required data"));
 }
+

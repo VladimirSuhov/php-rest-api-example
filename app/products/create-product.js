@@ -15,7 +15,7 @@ class ProductForm {
         return `<div id='read-products' class='btn btn-primary pull-right m-b-15px read-products-button'>
             <span class='glyphicon glyphicon-list'></span> Read Products
         </div>
-        <form id='create-product-form' action='#' method='post' border='0'>
+        <form id='create-product-form' action='#' border='0'>
             <table class='table table-hover table-responsive table-bordered'>
                 <tr>
                     <td>Name</td>
@@ -23,7 +23,7 @@ class ProductForm {
                 </tr>
                 <tr>
                     <td>Price</td>
-                    <td><input type='number' min='1' name='price' class='form-control' required /></td>
+                    <td><input type='price' min='1' name='price' class='form-control' required /></td>
                 </tr>
                 <tr>
                     <td>Description</td>
@@ -53,10 +53,8 @@ class ProductForm {
 document.addEventListener("DOMContentLoaded", function (event) {
 
 
-    $(document).on('click', '.create-product-button', createProduct);
-
-
-    function createProduct(e) {
+    $(document).on('click', '.create-product-button', showCreateForm);
+    function showCreateForm(e) {
         e.preventDefault();
 
         fetch("http://php-rest-api-example/api/product/read.php")
@@ -66,9 +64,28 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     $('#page-content').html(form.renderForm());
                 })
                 .catch(function (err) {
-                    console.log('Fetch Error :-S', err);
+                    console.log('Fetch Error: ', err);
                 });
 
 
     };
+
+    $(document).on('submit', '#create-product-form', createProduct);
+    function createProduct(e) {
+        e.preventDefault();
+        let form = $('#create-product-form');
+        let formData = form.serialize();
+        $.ajax({
+            url: "http://php-rest-api-example/api/product/create.php",
+            type: "post",
+            dataType: "json",
+            data: formData,
+            success: function (res) {
+                console.log(res);
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        })
+    }
 });

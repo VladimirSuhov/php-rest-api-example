@@ -203,10 +203,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 $('#page-content').html(table._renderTableHeader());
             })
             .catch(function (err) {
-                console.log('Fetch Error :-S', err);
+                console.log('Fetch Error: ', err);
             });
-
-
     };
 });
 
