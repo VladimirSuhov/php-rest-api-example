@@ -3,12 +3,12 @@
  */
 
 class ProductForm {
-    construct(data) {
-        this.selectOptions = _renderCategoriesList(data);
+    constructor(data) {
+        this.selectOptions = this._renderCategoriesList(data);
     }
 
     _renderCategoriesList(data) {
-        return test.map(item =>{ return `<option value="${item.id}">${item.name}</option>` });
+        return data.map(item =>{ return `<option value="${item.id}">${item.name}</option>` });
     }
 
     renderForm() {
@@ -33,7 +33,7 @@ class ProductForm {
                             <td>Category</td>
                             <td>
                                 <select name='category_id' class='form-control'>
-                                      ${this._renderCategoriesList()}
+                                      ${this.selectOptions}
                                   </select>
                             </td>
                         </tr>

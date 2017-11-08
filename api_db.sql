@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `category_id` int(11) NOT NULL,
   `created` datetime NOT NULL,
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=MyISAM AUTO_INCREMENT=65 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `products`
