@@ -9,11 +9,11 @@
 class Category
 {
 
-    // database connection and table name
+    // соединение с бт и имя таблицы
     private $conn;
     private $table_name = "categories";
 
-    // object properties
+    // устанавливаем свойства обьекта
     public $id;
     public $name;
     public $description;
@@ -23,9 +23,9 @@ class Category
         $this->conn = $db;
     }
 
-    // used by select drop-down list
+    // список всех категорий
     public function readAll(){
-        //select all data
+        // выбираем нужные данные
         $query = "SELECT
                     id, name, description
                 FROM
@@ -39,10 +39,9 @@ class Category
         return $stmt;
     }
 
-    // used by select drop-down list
+
     public function read(){
 
-        //select all data
         $query = "SELECT
                 id, name, description
             FROM

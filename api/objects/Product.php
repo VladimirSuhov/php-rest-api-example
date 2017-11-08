@@ -161,7 +161,7 @@ class Product
         $stmt->bindParam(":category_id", $this->category_id);
         $stmt->bindParam(":created", $this->created);
 
-        // execute query
+        // выполняем запрос
         if($stmt->execute()){
             return true;
         }else{
@@ -170,10 +170,10 @@ class Product
 
     }
 
-    // search products
+    // поиск продуктов
     function search($keywords){
 
-        // select all query
+        // выбираем необходимые поля
         $query = "SELECT
                 c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created
             FROM
@@ -186,19 +186,19 @@ class Product
             ORDER BY
                 p.created DESC";
 
-        // prepare query statement
+        // подготавливаем запрос
         $stmt = $this->conn->prepare($query);
 
-        // sanitize
+        // удаляем лишние html теги
         $keywords=htmlspecialchars(strip_tags($keywords));
         $keywords = "%{$keywords}%";
 
-        // bind
+        // биндим параметры запроса
         $stmt->bindParam(1, $keywords);
         $stmt->bindParam(2, $keywords);
         $stmt->bindParam(3, $keywords);
 
-        // execute query
+        // выполняем запрос
         $stmt->execute();
 
         return $stmt;
@@ -206,7 +206,7 @@ class Product
 
     public function readPaging($from_record_num, $records_per_page){
 
-        // select query
+
         $query = "SELECT
                 c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created
             FROM
@@ -217,17 +217,13 @@ class Product
             ORDER BY p.created DESC
             LIMIT ?, ?";
 
-        // prepare query statement
         $stmt = $this->conn->prepare( $query );
 
-        // bind variable values
         $stmt->bindParam(1, $from_record_num, PDO::PARAM_INT);
         $stmt->bindParam(2, $records_per_page, PDO::PARAM_INT);
 
-        // execute query
         $stmt->execute();
 
-        // return values from database
         return $stmt;
     }
 

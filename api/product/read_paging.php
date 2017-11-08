@@ -30,21 +30,16 @@ $product = new Product($db);
 $stmt = $product->readPaging($from_record_num, $records_per_page);
 $num = $stmt->rowCount();
 
-// check if more than 0 record found
+// проверяем что кол-во записей > 0
 if($num>0){
 
-    // products array
+    // создаем массив для продуктов
     $products_arr=array();
     $products_arr["records"]=array();
     $products_arr["paging"]=array();
 
-    // retrieve our table contents
-    // fetch() is faster than fetchAll()
-    // http://stackoverflow.com/questions/2770630/pdofetchall-vs-pdofetch-in-a-loop
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-        // extract row
-        // this will make $row['name'] to
-        // just $name only
+        // извлекаем  $row['name'] , таким образом приводя его к виду $row
         extract($row);
 
         $product_item=array(
@@ -60,7 +55,7 @@ if($num>0){
     }
 
 
-    // include paging
+    // включаем постраничный вывод
     $total_rows=$product->count();
     $page_url="{$home_url}product/read_paging.php?";
     $paging=$utilities->getPaging($page, $total_rows, $records_per_page, $page_url);

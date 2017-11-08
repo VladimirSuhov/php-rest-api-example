@@ -6,19 +6,19 @@
  * Time: 17:34
  */
 
-// show error reporting
+// включаем отображение ошибок
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// home page url
+// урл корня
 $home_url="http://php-rest-api-example/api/";
 
-// page given in URL parameter, default page is one
+// номер страницы, переданной в урл, по умолчанию 1
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-// set number of records per page
+// устанавливаем количество записей на страницк
 $records_per_page = 5;
 
-// calculate for the query LIMIT clause
+// подсчитываем лимит записей для запроса
 $from_record_num = ($records_per_page * $page) - $records_per_page;
 
