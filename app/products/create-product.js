@@ -54,8 +54,6 @@ class ProductForm {
     $(document).on('click', '.create-product-button', showCreateForm);
 
     function showCreateForm(e) {
-        e.preventDefault();
-
         fetch("http://php-rest-api-example/api/category/read.php")
             .then(response => response.json())
                 .then(data => {
@@ -65,7 +63,6 @@ class ProductForm {
                 .catch(function (err) {
                     console.log('Fetch Error: ', err);
                 });
-
     };
 
     $(document).on('submit', '#create-product-form', createProduct);

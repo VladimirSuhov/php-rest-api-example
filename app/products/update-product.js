@@ -5,6 +5,8 @@
 class UpdateProductForm {
     constructor(data) {
         this.data = data;
+        this.categories = this._fetchCategories();
+        console.log(this.categories);
     }
 
     // _renderCategoriesList(data) {
@@ -49,6 +51,23 @@ class UpdateProductForm {
                     </table>
                 </form>`;
     }
+
+    _fetchCategories() {
+        fetch('http://php-test-api-example/api/category/read.php')
+            .then(response => {
+                if (response.status !== 200) {
+                    console.log(`Looks like there was a problem. Status Code: ${response.status}`);
+
+                    return;
+                }
+
+                response.json()
+                    .then(data => console.log(data));
+            })
+            .catch(error =>
+                console.log(`Fetch Error: ${error}`)
+            );
+    }
 }
 
 
@@ -56,17 +75,6 @@ $(document).on('click', '.update-product-button', showUpdateForm);
 
 function showUpdateForm() {
     let productId = this.getAttribute('data-id');
-    let categories;
-    fetch("http://php-rest-api-example/api/category/read.php")
-        .then(response => response.json())
-        .then(data => {
-            return categories = data;
-        }).catch(err => {
-        console.log('Fetch Error: ', err);
-    });
-
-
-    console.log(categories);
     fetch("http://php-rest-api-example/api/product/read_one.php?id=" + productId )
         .then(response => response.json())
         .then(data => {
