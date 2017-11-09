@@ -21,7 +21,7 @@ class showProductsTable {
                         <th class='w-25-pct text-align-center'>Action</th>
                     </tr>
                     ${this.renderProductRows}
-                </table> `;
+                </table>`;
     }
 
     _renderProductRows(data) {
@@ -51,8 +51,6 @@ class showProductsTable {
 
 }
 
-document.addEventListener("DOMContentLoaded", function (event) {
-
     showProducts();
 
     $(document).on('click', '#read-products', showProducts);
@@ -69,6 +67,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 console.log('Fetch Error: ', err);
             });
     };
-});
+
 
 

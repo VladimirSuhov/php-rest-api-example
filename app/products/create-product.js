@@ -50,7 +50,6 @@ class ProductForm {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function (event) {
 
     $(document).on('click', '.create-product-button', showCreateForm);
 
@@ -89,4 +88,3 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     }
 
-});

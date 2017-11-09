@@ -24,27 +24,18 @@ $db = $database->getConnection();
 // инициализируем объект Products
 $product = new Product($db);
 
-// получаем id продутка, который нужно обновить
-$data = json_decode(file_get_contents("php://input"));
-
-// присваиваем id продутка, который нужно обновить
-$product->id = $data->id;
-
-
-$product->name = $data->name;
-$product->price = $data->price;
-$product->description = $data->description;
-$product->category_id = $data->category_id;
-
-// обновляем продукт
-if($product->update()){
-    echo '{';
-        echo '"message": "Product was updated."';
-    echo '}';
-}
-
-else{
-    echo '{';
-        echo '"message": "Unable to update product."';
-    echo '}';
+if(!empty($_POST['id']) && !empty($_POST['name'] && $_POST['price'] && $_POST['description'] && $_POST['category_id']))
+{
+    $product->id = $_POST['id'];
+    $product->name = $_POST['name'];
+    $product->price = $_POST['price'];
+    $product->description = $_POST['description'];
+    $product->category_id = $_POST['category_id'];
+    if($product->update()){
+        echo json_encode(array("success" => true, "message" => "New product successfully updated"));
+    } else{
+        echo json_encode(array("success" => false, "message" => "Failed to update product"));
+    }
+} else {
+    echo json_encode(array("success" => false, "message" => "Failed to add new product, please, enter all required data"));
 }
