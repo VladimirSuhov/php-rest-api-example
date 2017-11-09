@@ -6,7 +6,6 @@
 class showProductsTable {
 
     constructor(data) {
-        console.log(data);
         this.renderProductRows = this._renderProductRows(data);
     }
 
@@ -56,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     showProducts();
 
-    $(document).on('click', '.create-product-button', showProducts);
+    $(document).on('click', '#read-products', showProducts);
 
     function showProducts() {
 
@@ -66,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 const table = new showProductsTable(data.records);
                 $('#page-content').html(table.renderTableHeader());
             })
-            .catch(function (err) {
+            .catch(err => {
                 console.log('Fetch Error: ', err);
             });
     };

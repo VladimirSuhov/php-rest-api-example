@@ -123,7 +123,7 @@ class Product
     }
 
     function delete(){
-        $query = "DELETE FROM " . $this->table_name . " WHERE id =?";
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
 
         $stmt = $this->conn->prepare($query);
 

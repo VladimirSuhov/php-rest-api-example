@@ -29,14 +29,14 @@ $product = new Product($db);
 if (!empty($_POST['id'])) {
     $product->id = $_POST['id'];
 // удаляем продукт
-    if($product->update()){
+    if($product->delete()){
         echo json_encode(array("success" => true, "message" => "Product successfully deleted"));
     }
     else{
-        echo json_encode(array("success" => true, "message" => "Error, product was not deleted"));
+        echo json_encode(array("success" => false, "message" => "Error, product was not deleted"));
     }
 } else {
-    echo json_encode(array("success" => true, "message" => "Data error, please check iff you pass correct product id"));
+    echo json_encode(array("success" => false, "message" => "Data error, please check if you pass correct product id"));
 }
 
 

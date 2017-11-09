@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function showCreateForm(e) {
         e.preventDefault();
 
-        fetch("http://php-rest-api-example/api/product/read.php")
+        fetch("http://php-rest-api-example/api/category/read.php")
             .then(response => response.json())
                 .then(data => {
                     const form = new ProductForm(data.records);
